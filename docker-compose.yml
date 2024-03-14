@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  bot:
+    build: .
+    restart: always
+    depends_on:
+      - redis
+    container_name: hubresearcher-bot
+    command: python3 run.py
+    env_file:
+      - .env
+
+  redis:
+    restart: always
+    image: redis:7.0.5-alpine
+    container_name: hubresearcher-redis
