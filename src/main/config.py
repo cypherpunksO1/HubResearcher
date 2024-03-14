@@ -13,12 +13,22 @@ REDIS_HOST_ENV = "REDIS_HOST"
 REDIS_PORT_ENV = "REDIS_PORT"
 REDIS_PASSWORD_ENV = "REDIS_PASSWORD"
 
+
 @dataclass
 class BotConfig:
     bot_token: str
-    
+
+
 @dataclass
 class RedisConfig:
+    host: int
+    port: int
+    db: str
+    password: str
+
+
+@dataclass
+class PostgresConfig:
     host: int
     port: int
     db: str
@@ -29,19 +39,30 @@ def load_bot_config() -> BotConfig:
     return BotConfig(
         bot_token=os.getenv(BOT_TOKEN_ENV)
     )
-    
-    
+
+
 def load_redis_config() -> RedisConfig:
     return RedisConfig(
         host=os.getenv("REDIS_HOST_ENV"),
         port=os.getenv("REDIS_PORT_ENV"),
-        password=os.getenv("REDIS_PASSWORD_ENV") if os.getenv("REDIS_PASSWORD_ENV") else None, 
+        password=os.getenv("REDIS_PASSWORD_ENV") if os.getenv(
+            "REDIS_PASSWORD_ENV") else None,
         db="main"
     )
-    
- 
-redis_config = load_redis_config()   
+
+
+def load_postgres_config() -> RedisConfig:
+    return RedisConfig(
+        host=os.getenv("REDIS_HOST_ENV"),
+        port=os.getenv("REDIS_PORT_ENV"),
+        password=os.getenv("REDIS_PASSWORD_ENV") if os.getenv(
+            "REDIS_PASSWORD_ENV") else None,
+        db="main"
+    )
+
+
+redis_config = load_redis_config()
 redis = Redis(
-    host=redis_config.host, 
+    host=redis_config.host,
     port=redis_config.port
 )
