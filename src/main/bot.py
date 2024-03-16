@@ -7,7 +7,7 @@ from src.main.config import (load_bot_config,
                              redis)
 
 from src.presentation.telegram.start import start_router
-from src.presentation.telegram.inline_search import inline_search_router
+from src.presentation.telegram.search_repo import search_repo_router
 
 
 def get_dispatcher(bot: Bot) -> Dispatcher:
@@ -16,7 +16,7 @@ def get_dispatcher(bot: Bot) -> Dispatcher:
     )
     dispatcher = Dispatcher(bot=bot)
     dispatcher.include_router(start_router)
-    dispatcher.include_router(inline_search_router)
+    dispatcher.include_router(search_repo_router)
     
     return dispatcher
     

@@ -21,4 +21,4 @@ class User(Base, SerializerMixin):
     telegram_id = Column(String)
     created = Column(DateTime, default=datetime.utcnow)
 
-asyncio.run(init_models())
+init_models()
