@@ -19,5 +19,5 @@ async def start(
     )
 
     await message.answer(
-        text="/testpool"
+        text="Hello. Use me on inline mode or send search query in this chat."
     )
