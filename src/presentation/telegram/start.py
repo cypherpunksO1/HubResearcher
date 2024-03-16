@@ -8,7 +8,6 @@ from src.main.base import get_session
 
 start_router = Router()
 
-
 @start_router.message(CommandStart())
 async def start(
     message: Message

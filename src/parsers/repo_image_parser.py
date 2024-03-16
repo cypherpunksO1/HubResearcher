@@ -5,8 +5,9 @@ import os
 from src.parsers.exceptions import *
 
 
-def save_repo_image(repo_url: str):
-    response = requests.get(repo_url)
+def save_repo_image(repo_name: str, return_only_og: bool = False):
+    url = "https://github.com/%s" % repo_name
+    response = requests.get(url)
 
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -15,11 +16,23 @@ def save_repo_image(repo_url: str):
 
         if meta_tag:
             image_url = meta_tag.get('content')
+            
+            if return_only_og:
+                return image_url
 
             image_response = requests.get(image_url)
 
             if image_response.status_code == 200:
-                file_name = image_url.split("/")[-1] + ".png"
+                save_path = os.getenv("DEFAULT_IMAGES_DIR")
+                
+                repo_owner = repo_name.split("/")[0]
+                
+                try:
+                    os.mkdir(save_path + repo_owner)
+                except FileExistsError:
+                    pass
+                
+                file_name = save_path + repo_name + ".png"
                 
                 with open(file_name, 'wb') as file:
                     file.write(image_response.content)

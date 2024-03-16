@@ -23,7 +23,8 @@ def get_dispatcher(bot: Bot) -> Dispatcher:
 
 async def bot_main() -> None:
     config = load_bot_config()
-    bot = Bot(config.bot_token)
+    bot = Bot(config.bot_token, 
+              parse_mode="HTML")
     
     await get_dispatcher(bot).start_polling(bot)
 

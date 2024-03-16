@@ -20,5 +20,3 @@ class User(Base, SerializerMixin):
     key = Column(UUID, default=uuid4)
     telegram_id = Column(String)
     created = Column(DateTime, default=datetime.utcnow)
-
-init_models()

@@ -2,13 +2,14 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData
 from sqlalchemy.orm import declarative_base
 from dataclasses import dataclass
-from logging import getLogger
 from redis import Redis
 from dotenv import load_dotenv
-import os
+import os, logging
 
 load_dotenv()
-logger = getLogger(__name__)
+
+logging.basicConfig(filename="logs.log", filemode=os.getenv("LOGS_FILEMODE"), format=os.getenv("LOGS_FORMAT"))
+logger = logging.getLogger(__name__)
 
 BOT_TOKEN_ENV = "BOT_TOKEN"
 

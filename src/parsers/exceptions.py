@@ -12,3 +12,7 @@ class PageLoadError(Exception):
 
 class MakeMessageError(Exception):
     pass
+
+
+class RepoNotFound(Exception):
+    pass

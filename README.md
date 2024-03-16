@@ -1,3 +1,3 @@
 # HubResearcher
 
-Telegram inline-mode bot for repo searching.
+Telegram inline-mode bot for repository searching.
