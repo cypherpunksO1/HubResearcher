@@ -1,3 +1,6 @@
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData
+from sqlalchemy.orm import declarative_base
 from dataclasses import dataclass
 from logging import getLogger
 from redis import Redis
@@ -29,10 +32,11 @@ class RedisConfig:
 
 @dataclass
 class PostgresConfig:
+    user: str
+    password: str
     host: int
     port: int
     db: str
-    password: str
 
 
 def load_bot_config() -> BotConfig:
@@ -43,21 +47,22 @@ def load_bot_config() -> BotConfig:
 
 def load_redis_config() -> RedisConfig:
     return RedisConfig(
-        host=os.getenv("REDIS_HOST_ENV"),
-        port=os.getenv("REDIS_PORT_ENV"),
-        password=os.getenv("REDIS_PASSWORD_ENV") if os.getenv(
+        host=os.getenv("REDIS_HOST"),
+        port=os.getenv("REDIS_PORT"),
+        password=os.getenv("REDIS_PASSWORD") if os.getenv(
             "REDIS_PASSWORD_ENV") else None,
         db="main"
     )
 
 
-def load_postgres_config() -> RedisConfig:
-    return RedisConfig(
-        host=os.getenv("REDIS_HOST_ENV"),
-        port=os.getenv("REDIS_PORT_ENV"),
-        password=os.getenv("REDIS_PASSWORD_ENV") if os.getenv(
-            "REDIS_PASSWORD_ENV") else None,
-        db="main"
+def load_postgres_config() -> PostgresConfig:
+    return PostgresConfig(
+        host=os.getenv("POSTGRES_HOST"),
+        port=os.getenv("POSTGRES_PORT"),
+        user=os.getenv("POSTGRES_USER"),
+        password=os.getenv("POSTGRES_PASSWORD") if os.getenv(
+            "POSTGRES_PASSWORD") else None,
+        db="hubresearcher"
     )
 
 
